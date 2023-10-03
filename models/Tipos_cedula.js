@@ -3,9 +3,9 @@ import db from "../database/db.js";
 //importamos sequelize
 import { DataTypes } from "sequelize";
 
-const TipoCSModel = db.define('TAB_TIPOS_CEDULAS', {
-    ID_TIPO_CEDULA: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    DESCRIPCION: { type: DataTypes.STRING },
+const TipoCSModel = db.define('tab_tipos_cedulas', {
+    id_tipo_cedula: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    descripcion: { type: DataTypes.STRING },
 
 
 })
