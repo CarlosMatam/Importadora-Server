@@ -4,6 +4,7 @@ const db = new Sequelize(process.env.DB_DBNAME, process.env.DB_USERNAME, process
     host: 'b0ksmfcq5ngfygumb0tt-mysql.services.clever-cloud.com',
 
     dialect: 'mysql'
+
 })
 
 export default db
