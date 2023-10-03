@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 
 const db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-    host: 'localhost',
+    host: 'b0ksmfcq5ngfygumb0tt-mysql.services.clever-cloud.com',
 
     dialect: 'mysql'
 })
