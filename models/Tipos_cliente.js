@@ -3,10 +3,10 @@ import db from "../database/db.js";
 //importamos sequelize
 import { DataTypes } from "sequelize";
 
-const Tipo_clienteSModel = db.define('TAB_TIPOS_CLIENTE', {
-    ID_TIPO_CLIENTE: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    NOMBRE:{type:DataTypes.STRING},
-    DESCRIPCION: { type: DataTypes.STRING },
+const Tipo_clienteSModel = db.define('tab_tipos_clientes', {
+    id_tipo_cliente: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    nombre:{type:DataTypes.STRING},
+    descripcion: { type: DataTypes.STRING },
 
 })
 
