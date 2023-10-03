@@ -19,5 +19,8 @@
     "save": "^2.9.0",
     "sequelize": "^6.32.0",
     "sequelize-cli": "^6.6.0"
+  },
+  "engines": {
+    "node": ">=14 <15"
   }
 }
