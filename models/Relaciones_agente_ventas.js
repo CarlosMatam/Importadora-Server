@@ -5,10 +5,10 @@ import ZonaSModel from './Zona.js';
 
 
 
-Agente_ventaSModel.hasOne(Direccion_agenteSModel, { foreignKey: "ID_AGENTE", onDelete: 'CASCADE' });
-Agente_ventaSModel.hasOne(Telefono_agenteSModel, { foreignKey: "ID_AGENTE", onDelete: 'CASCADE' });
+Agente_ventaSModel.hasOne(Direccion_agenteSModel, { foreignKey: "id_agente", onDelete: 'CASCADE' });
+Agente_ventaSModel.hasOne(Telefono_agenteSModel, { foreignKey: "id_agente", onDelete: 'CASCADE' });
 
-Agente_ventaSModel.belongsTo(ZonaSModel, { foreignKey: "ID_ZONA" });
+Agente_ventaSModel.belongsTo(ZonaSModel, { foreignKey: "id_zona" });
 
 
 

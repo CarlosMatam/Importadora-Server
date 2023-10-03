@@ -3,12 +3,12 @@ import db from "../database/db.js";
 //importamos sequelize
 import { DataTypes } from "sequelize";
 
-const PagoSModel = db.define('TAB_PAGOS', {
-    ID_PAGO: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    FECHA_INGRESO: { type: DataTypes.DATE},
-    MONTO: { type: DataTypes.NUMBER },
-    ESTADO: { type: DataTypes.TINYINT },
-    ID_PROVEEDOR: { type: DataTypes.INTEGER },
+const PagoSModel = db.define('tab_pagos', {
+    id_pago: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    fecha_ingreso: { type: DataTypes.DATE},
+    monto: { type: DataTypes.NUMBER },
+    estado: { type: DataTypes.TINYINT },
+    id_proveedor: { type: DataTypes.INTEGER },
 })
 
 export default PagoSModel

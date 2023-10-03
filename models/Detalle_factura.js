@@ -3,13 +3,13 @@ import db from "../database/db.js";
 //importamos sequelize
 import { DataTypes } from "sequelize";
 
-const DetalleFacturaSModel = db.define('TAB_DETALLE_FACTURAS', {
-    ID_DETALLE_FACTURA: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    ID_FACTURA: { type: DataTypes.INTEGER },
-    ID_PRODUCTO: { type: DataTypes.INTEGER },
-    CANTIDAD: { type: DataTypes.INTEGER },
-    SUBTOTAL: { type: DataTypes.DECIMAL },
-    DESCUENTO: { type: DataTypes.NUMBER },
+const DetalleFacturaSModel = db.define('tab_detalle_facturas', {
+    id_detalle_factura: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    id_factura: { type: DataTypes.INTEGER },
+    id_producto: { type: DataTypes.INTEGER },
+    cantidad: { type: DataTypes.INTEGER },
+    subtotal: { type: DataTypes.DECIMAL },
+    descuento: { type: DataTypes.NUMBER },
 
 
 

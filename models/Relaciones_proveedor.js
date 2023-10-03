@@ -5,10 +5,10 @@ import ProveedorSModel from './Proveedor.js'
 
 
 
-ProveedorSModel.hasOne(Direccion_proveedorSModel, { foreignKey: "ID_PROVEEDOR", onDelete: 'CASCADE' });
-ProveedorSModel.hasOne(Telefono_proveedorSModel, { foreignKey: "ID_PROVEEDOR", onDelete: 'CASCADE' });
+ProveedorSModel.hasOne(Direccion_proveedorSModel, { foreignKey: "id_proveedor", onDelete: 'CASCADE' });
+ProveedorSModel.hasOne(Telefono_proveedorSModel, { foreignKey: "id_proveedor", onDelete: 'CASCADE' });
 
-ProveedorSModel.belongsTo(TipoCSModel, { foreignKey: "TIPO_CEDULA" });
+ProveedorSModel.belongsTo(TipoCSModel, { foreignKey: "tipo_cedula" });
 
 
 

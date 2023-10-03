@@ -3,14 +3,14 @@ import db from "../database/db.js";
 //importamos sequelize
 import { DataTypes } from "sequelize";
 
-const Direccion_agenteSModel = db.define('TAB_DIRECCIONES_AGENTES_VENTAS', {
-    ID_DIRECCION: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    PROVINCIA: { type: DataTypes.STRING },
-    CANTON: { type: DataTypes.STRING },
-    DISTRITO: { type: DataTypes.STRING },
-    BARRIO: { type: DataTypes.STRING },
-    OTRAS_SENNAS: { type: DataTypes.STRING },
-    ID_AGENTE: { type: DataTypes.INTEGER },
+const Direccion_agenteSModel = db.define('tab_direcciones_agentes_ventas', {
+    id_direccion: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    provincia: { type: DataTypes.STRING },
+    canton: { type: DataTypes.STRING },
+    distrito: { type: DataTypes.STRING },
+    barrio: { type: DataTypes.STRING },
+    otras_sennas: { type: DataTypes.STRING },
+    id_agente: { type: DataTypes.INTEGER },
 
 
 })

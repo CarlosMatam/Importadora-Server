@@ -3,12 +3,12 @@ import db from "../database/db.js";
 //importamos sequelize
 import { DataTypes } from "sequelize";
 
-const Telefono_proveedorSModel = db.define('TAB_TELEFONOS_PROVEEDORES', {
-    ID_TELEFONO: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    TELEFONO_1: { type: DataTypes.INTEGER },
-    TELEFONO_2: { type: DataTypes.INTEGER },
-    TELEFONO_3: { type: DataTypes.INTEGER },
-    ID_PROVEEDOR: { type: DataTypes.INTEGER },
+const Telefono_proveedorSModel = db.define('tab_telefonos_proveedores', {
+    id_telefono: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    telefono_1: { type: DataTypes.INTEGER },
+    telefono_2: { type: DataTypes.INTEGER },
+    telefono_3: { type: DataTypes.INTEGER },
+    id_proveedor: { type: DataTypes.INTEGER },
     
 
 })
