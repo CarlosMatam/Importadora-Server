@@ -19,7 +19,7 @@ export const getAllDireccion = async (req, res) => {
 export const getDireccion = async (req, res) => {
     try {
         const direccion = await Direccion_agenteSModel.findAll({
-            where: { ID_DIRECCION: req.params.ID_DIRECCION }
+            where: { id_direccion: req.params.id_direccion }
         })
         res.json(direccion[0])
     } catch (error) {
@@ -31,11 +31,11 @@ export const getDireccion = async (req, res) => {
 // Crear un registro
 export const createDireccion = async (req, res) => {
     try {
-        const { ID_AGENTE, PROVINCIA, CANTON, DISTRITO, BARRIO, OTRAS_SENNAS } = req.body;
+        const { id_agente, provincia, canton, distrito, barrio, otras_sennas } = req.body;
 
         // Verifica si existe un agente de ventas con el ID proporcionado
         const agenteDeVentas = await Agente_ventaSModel.findOne({
-            where: { ID_AGENTE }
+            where: { id_agente }
         });
 
         if (!agenteDeVentas) {
@@ -44,19 +44,19 @@ export const createDireccion = async (req, res) => {
 
         // Crea la dirección y establece la relación con el agente de ventas
         const direccion = await Direccion_agenteSModel.create({
-            PROVINCIA,
-            CANTON,
-            DISTRITO,
-            BARRIO,
-            OTRAS_SENNAS,
-            ID_AGENTE
+            provincia,
+            canton,
+            distrito,
+            barrio,
+            otras_sennas,
+            id_agente
         });
 
         // Obtén el ID de la dirección creada
-        const ID_DIRECCION = direccion.ID_DIRECCION;
+        const id_direccion = direccion.id_direccion;
 
         res.json({
-            ID_DIRECCION,
+            id_direccion,
             "message": "¡Registro creado correctamente!"
         });
     } catch (error) {
@@ -67,7 +67,7 @@ export const createDireccion = async (req, res) => {
 export const updateDireccion = async (req, res) => {
     try {
         await Direccion_agenteSModel.update(req.body, {
-            where: { ID_DIRECCION: req.params.ID_DIRECCION }
+            where: { id_direccion: req.params.id_direccion }
         })
         res.json({
             "message": "¡Registro actualizado correctamente!"
@@ -80,7 +80,7 @@ export const updateDireccion = async (req, res) => {
 export const deleteDireccion = async (req, res) => {
     try {
         await Direccion_agenteSModel.destroy({
-            where: { ID_DIRECCION: req.params.ID_DIRECCION }
+            where: { id_direccion: req.params.id_direccion }
         })
         res.json({
             "message": "¡Registro eliminado correctamente!"

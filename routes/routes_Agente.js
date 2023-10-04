@@ -3,9 +3,9 @@ import { getAllAgente, getAgente, createAgente, updateAgente, deleteAgente } fro
 const router = express.Router()
 
 router.get('/', getAllAgente)
-router.get('/:ID_AGENTE', getAgente)
+router.get('/:id_agente', getAgente)
 router.post('/', createAgente)
-router.put('/:ID_AGENTE', updateAgente)
-router.delete('/:ID_AGENTE', deleteAgente)
+router.put('/:id_agente', updateAgente)
+router.delete('/:id_agente', deleteAgente)
 
 export default router
