@@ -21,7 +21,7 @@ export const getAllAgente = async (req, res) => {
 export const getAgente = async (req, res) => {
     try {
         const agente = await Agente_ventaSModel.findAll({
-            where: { ID_AGENTE: req.params.ID_AGENTE }
+            where: { id_agente: req.params.id_agente }
         })
         res.json(agente[0])
     } catch (error) {
@@ -32,10 +32,10 @@ export const getAgente = async (req, res) => {
 export const createAgente = async (req, res) => {
     try {
         const agenteDeVentas = await Agente_ventaSModel.create(req.body)
-        const agenteVentaId = agenteDeVentas.ID_AGENTE;
+        const agenteVentaId = agenteDeVentas.id_agente;
 
         res.json({
-            ID_AGENTE: agenteVentaId,
+            id_agente: agenteVentaId,
             "message": "¡Registro creado correctamente!"
         })
     } catch (error) {
@@ -45,47 +45,47 @@ export const createAgente = async (req, res) => {
 
 //Actualizar un registro
 export const updateAgente = async (req, res) => {
-    const { ID_AGENTE } = req.params;
+    const { id_agente } = req.params;
 
     try {
         // Actualiza los datos del agente
         await Agente_ventaSModel.update(
             {
-                NOMBRE: req.body.NOMBRE,
-                APELLIDO_PATERNO: req.body.APELLIDO_PATERNO,
-                APELLIDO_MATERNO: req.body.APELLIDO_MATERNO,
-                COMISION_POR_VENTA: req.body.COMISION_POR_VENTA,
-                ID_ZONA: req.body.ID_ZONA,
-                IDENTIFICACION: req.body.IDENTIFICACION,
+                nombre: req.body.nombre,
+                apellido_paterno: req.body.apellido_paterno,
+                apellido_materno: req.body.apellido_materno,
+                comision_por_venta: req.body.comision_por_venta,
+                id_zona: req.body.id_zona,
+                identificacion: req.body.identificacion,
             },
             {
-                where: { ID_AGENTE },
+                where: { id_agente },
             }
         );
 
         // Actualiza los teléfonos del agente
         await Telefono_agenteSModel.update(
             {
-                TELEFONO_1: req.body.TELEFONO_1,
-                TELEFONO_2: req.body.TELEFONO_2,
-                TELEFONO_3: req.body.TELEFONO_3,
+                telefono_1: req.body.telefono_1,
+                telefono_2: req.body.telefono_2,
+                telefono_3: req.body.telefono_3,
             },
             {
-                where: { ID_AGENTE },
+                where: { id_agente },
             }
         );
 
         // Actualiza las direcciones del agente
         await Direccion_agenteSModel.update(
             {
-                PROVINCIA: req.body.PROVINCIA,
-                CANTON: req.body.CANTON,
-                DISTRITO: req.body.DISTRITO,
-                BARRIO: req.body.BARRIO,
-                OTRAS_SENNAS: req.body.OTRAS_SENNAS,
+                provincia: req.body.provincia,
+                canton: req.body.canton,
+                distrito: req.body.distrito,
+                barrio: req.body.barrio,
+                otras_sennas: req.body.otras_sennas,
             },
             {
-                where: { ID_AGENTE },
+                where: { id_agente },
             }
         );
 
@@ -100,11 +100,11 @@ export const updateAgente = async (req, res) => {
 //Eliminar un registro
 export const deleteAgente = async (req, res) => {
     try {
-        const { ID_AGENTE } = req.params;
+        const { id_agente } = req.params;
 
         // Buscar el agente de ventas por su ID junto con sus relaciones asociadas
         const agente = await Agente_ventaSModel.findOne({
-            where: { ID_AGENTE },
+            where: { id_agente },
             include: [Telefono_agenteSModel, Direccion_agenteSModel]
         });
 
@@ -114,11 +114,11 @@ export const deleteAgente = async (req, res) => {
 
         // Eliminar las relaciones asociadas (telefonos y direcciones)
         await Telefono_agenteSModel.destroy({
-            where: { ID_AGENTE }
+            where: { id_agente }
         });
 
         await Direccion_agenteSModel.destroy({
-            where: { ID_AGENTE }
+            where: { id_agente }
         });
 
         // Eliminar el agente de ventas
