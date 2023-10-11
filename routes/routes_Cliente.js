@@ -3,9 +3,9 @@ import { getAllCliente, getCliente, createCliente, updateCliente, deleteCliente 
 const router = express.Router()
 
 router.get('/', getAllCliente)
-router.get('/:ID_CLIENTE', getCliente)
+router.get('/:id_cliente', getCliente)
 router.post('/', createCliente)
-router.put('/:ID_CLIENTE', updateCliente)
-router.delete('/:ID_CLIENTE', deleteCliente)
+router.put('/:id_cliente', updateCliente)
+router.delete('/:id_cliente', deleteCliente)
 
 export default router

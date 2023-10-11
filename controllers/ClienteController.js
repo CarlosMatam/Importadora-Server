@@ -21,7 +21,7 @@ export const getAllCliente = async (req, res) => {
 export const getCliente = async (req, res) => {
     try {
         const cliente = await ClienteSModel.findAll({
-            where: { ID_CLIENTE: req.params.ID_CLIENTE }
+            where: { id_cliente: req.params.id_cliente }
         })
         res.json(cliente[0])
     } catch (error) {
@@ -32,10 +32,10 @@ export const getCliente = async (req, res) => {
 export const createCliente = async (req, res) => {
     try {
         const cliente = await ClienteSModel.create(req.body)
-        const clienteId = cliente.ID_CLIENTE;
+        const clienteId = cliente.id_cliente;
 
         res.json({
-            ID_CLIENTE: clienteId,
+            id_cliente: clienteId,
             "message": "¡Registro creado correctamente!"
         })
     } catch (error) {
@@ -45,48 +45,48 @@ export const createCliente = async (req, res) => {
 
 //Actualizar un registro
 export const updateCliente = async (req, res) => {
-    const { ID_CLIENTE } = req.params;
+    const { id_cliente } = req.params;
 
     try {
         // Actualiza los datos del agente
         await ClienteSModel.update(
             {
-                NOMBRE: req.body.NOMBRE,
-                APELLIDO_PATERNO: req.body.APELLIDO_PATERNO,
-                APELLIDO_MATERNO: req.body.APELLIDO_MATERNO,
-                ID_TIPO_CLIENTE: req.body.ID_TIPO_CLIENTE,
-                CORREO: req.body.CORREO,
-                TIPO_CEDULA: req.body.TIPO_CEDULA,
-                CEDULA: req.body.CEDULA,
+                nombre: req.body.nombre,
+                apellido_paterno: req.body.apellido_paterno,
+                apellido_materno: req.body.apellido_materno,
+                id_tipo_cliente: req.body.id_tipo_cliente,
+                correo: req.body.correo,
+                tipo_cedula: req.body.tipo_cedula,
+                cedula: req.body.cedula,
             },
             {
-                where: { ID_CLIENTE },
+                where: { id_cliente },
             }
         );
 
         // Actualiza los teléfonos del agente
         await Telefono_clienteSModel.update(
             {
-                TELEFONO_1: req.body.TELEFONO_1,
-                TELEFONO_2: req.body.TELEFONO_2,
-                TELEFONO_3: req.body.TELEFONO_3,
+                telefono_1: req.body.telefono_1,
+                telefono_2: req.body.telefono_2,
+                telefono_3: req.body.telefono_3,
             },
             {
-                where: { ID_CLIENTE },
+                where: { id_cliente },
             }
         );
 
         // Actualiza las direcciones del agente
         await Direccion_clienteSModel.update(
             {
-                PROVINCIA: req.body.PROVINCIA,
-                CANTON: req.body.CANTON,
-                DISTRITO: req.body.DISTRITO,
-                BARRIO: req.body.BARRIO,
-                OTRAS_SENNAS: req.body.OTRAS_SENNAS,
+                provincia: req.body.provincia,
+                canton: req.body.canton,
+                distrito: req.body.distrito,
+                barrio: req.body.barrio,
+                otras_sennas: req.body.otras_sennas,
             },
             {
-                where: { ID_CLIENTE },
+                where: { id_cliente },
             }
         );
 
@@ -94,18 +94,18 @@ export const updateCliente = async (req, res) => {
             message: "Registro actualizado correctamente",
         });
     } catch (error) {
-        console.error(error); 
+        console.error(error);
         res.status(500).json({ message: error.message });
     }
 };
 //Eliminar un registro
 export const deleteCliente = async (req, res) => {
     try {
-        const { ID_CLIENTE } = req.params;
+        const { id_cliente } = req.params;
 
         // Buscar el agente de ventas por su ID junto con sus relaciones asociadas
         const cliente = await ClienteSModel.findOne({
-            where: { ID_CLIENTE },
+            where: { id_cliente },
             include: [Telefono_clienteSModel, Direccion_clienteSModel]
         });
 
@@ -115,11 +115,11 @@ export const deleteCliente = async (req, res) => {
 
         // Eliminar las relaciones asociadas (telefonos y direcciones)
         await Telefono_clienteSModel.destroy({
-            where: { ID_CLIENTE }
+            where: { id_cliente }
         });
 
         await Direccion_clienteSModel.destroy({
-            where: { ID_CLIENTE }
+            where: { id_cliente }
         });
 
         // Eliminar el agente de ventas

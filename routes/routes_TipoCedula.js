@@ -3,10 +3,10 @@ import { getAllTipo, getTipo, createTipo, updateTipo, deleteTipo } from '../cont
 const router = express.Router()
 
 router.get('/', getAllTipo)
-router.get('/:ID_TIPO_CEDULA', getTipo)
+router.get('/:id_tipo_cedula', getTipo)
 router.post('/', createTipo)
-router.put('/:ID_TIPO_CEDULA', updateTipo)
-router.delete('/:ID_TIPO_CEDULA', deleteTipo)
+router.put('/:id_tipo_cedula', updateTipo)
+router.delete('/:id_tipo_cedula', deleteTipo)
 
 export default router
 

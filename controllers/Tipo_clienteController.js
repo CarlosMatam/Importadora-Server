@@ -18,7 +18,7 @@ export const getAllTipo = async (req, res) => {
 export const getTipo = async (req, res) => {
     try {
         const tipo = await Tipo_clienteSModel.findAll({
-            where: { ID_TIPO_CLIENTE: req.params.ID_TIPO_CLIENTE }
+            where: { id_tipo_cliente: req.params.id_tipo_cliente }
         })
         res.json(tipo[0])
     } catch (error) {
@@ -40,7 +40,7 @@ export const createTipo = async (req, res) => {
 export const updateTipo = async (req, res) => {
     try {
         await Tipo_clienteSModel.update(req.body, {
-            where: { ID_TIPO_CLIENTE: req.params.ID_TIPO_CLIENTE }
+            where: { id_tipo_cliente: req.params.id_tipo_cliente }
         })
         res.json({
             "message": "¡Registro actualizado correctamente!"
@@ -53,7 +53,7 @@ export const updateTipo = async (req, res) => {
 export const deleteTipo = async (req, res) => {
     try {
         await Tipo_clienteSModel.destroy({
-            where: { ID_TIPO_CLIENTE: req.params.ID_TIPO_CLIENTE }
+            where: { id_tipo_cliente: req.params.id_tipo_cliente }
         })
         res.json({
             "message": "¡Registro eliminado correctamente!"
