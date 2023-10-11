@@ -5,11 +5,11 @@ const router = express.Router()
 
 router.post('/', crearCompra)
 router.get('/', getAllCompras)
-router.delete('/:NUM_DOCUMENTO', deleteCompra)
-router.put('/:NUM_DOCUMENTO', updateCompra)
-router.get('/:NUM_DOCUMENTO', getCompraById)
-router.get('/:NUM_DOCUMENTO/detalle', obtenerDetalleCompra)
-router.put('/:NUM_DOCUMENTO/detalle', actualizarDetalleCompra)
+router.delete('/:num_documento', deleteCompra)
+router.put('/:num_documento', updateCompra)
+router.get('/:num_documento', getCompraById)
+router.get('/:num_documento/detalle', obtenerDetalleCompra)
+router.put('/:num_documento/detalle', actualizarDetalleCompra)
 
 
 export default router

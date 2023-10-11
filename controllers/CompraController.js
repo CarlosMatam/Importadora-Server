@@ -8,48 +8,48 @@ export const crearCompra = async (req, res) => {
     try {
         // Obtener los datos de la compra y los detalles de compra del cuerpo de la solicitud
         const {
-            ID_COMPANIA,
-            ID_BODEGA,
-            ID_PROVEEDOR,
-            FECHA,
+            id_compania,
+            id_bodega,
+            id_proveedor,
+            fecha,
             detallesCompra, // Array de objetos de detalle de compra
-            TOTAL,
-            DESCUENTO,
+            total,
+            descuento,
         } = req.body;
 
         // Crear la compra en la base de datos
         const compra = await ComprasSModel.create({
-            ID_COMPANIA,
-            ID_BODEGA,
-            ID_PROVEEDOR,
-            FECHA,
-            TOTAL,
-            DESCUENTO,
+            id_compania,
+            id_bodega,
+            id_proveedor,
+            fecha,
+            total,
+            descuento,
         });
 
         // Crear los registros de detalle de compra asociados a la compra creada
         await Promise.all(
             detallesCompra.map(async (detalle) => {
                 await DetalleComprasSModel.create({
-                    NUM_DOCUMENTO: compra.NUM_DOCUMENTO,
-                    ID_PRODUCTO: detalle.ID_PRODUCTO,
-                    CANTIDAD: detalle.CANTIDAD,
-                    PRECIO: detalle.PRECIO,
-                    PORC_DESCUENTO: detalle.PORC_DESCUENTO,
+                    num_documento: compra.num_documento,
+                    id_producto: detalle.id_producto,
+                    cantidad: detalle.cantidad,
+                    precio: detalle.precio,
+                    porc_descuento: detalle.porc_descuento,
             
-                    SUBTOTAL: detalle.CANTIDAD * detalle.PRECIO,
+                    subtotal: detalle.cantidad * detalle.precio,
                     // Aquí puedes realizar los cálculos adicionales que necesites para cada detalle
                 });
 
                 // Luego, en el punto donde necesitas actualizar el producto
-                const producto = await ProductoSModel.findByPk(detalle.ID_PRODUCTO);
+                const producto = await ProductoSModel.findByPk(detalle.id_producto);
 
                 if (!producto) {
-                    throw new Error(`Producto con ID ${detalle.ID_PRODUCTO} no encontrado`);
+                    throw new Error(`Producto con ID ${detalle.id_producto} no encontrado`);
                 }
 
                 // Sumar la cantidad nueva a la existencia actual
-                producto.EXISTENCIA_ACTUAL = producto.EXISTENCIA_ACTUAL + detalle.CANTIDAD;
+                producto.existencia_actual = producto.existencia_actual + detalle.cantidad;
                 
 
                 // Guardar el producto actualizado
@@ -80,17 +80,17 @@ export const getAllCompras = async (req, res) => {
 
 
 export const deleteCompra = async (req, res) => {
-    const { NUM_DOCUMENTO } = req.params;
+    const { num_documento } = req.params;
 
     try {
         // Eliminar los detalles de factura relacionados manualmente
         await DetalleComprasSModel.destroy({
-            where: { NUM_DOCUMENTO },
+            where: { num_documento },
         });
 
         // Eliminar la factura
         await ComprasSModel.destroy({
-            where: { NUM_DOCUMENTO },
+            where: { num_documento },
         });
 
         res.status(200).json({ message: 'Factura y detalles eliminados correctamente' });
@@ -102,12 +102,12 @@ export const deleteCompra = async (req, res) => {
 
 
 export const updateCompra = async (req, res) => {
-    const numeroDocumento = req.params.NUM_DOCUMENTO;
+    const numeroDocumento = req.params.num_documento;
 
     try {
         // Actualizar la compra
         await ComprasSModel.update(req.body, {
-            where: { NUM_DOCUMENTO: numeroDocumento },
+            where: { num_documento: numeroDocumento },
         });
 
         // Actualizar el detalle de la compra
@@ -116,31 +116,31 @@ export const updateCompra = async (req, res) => {
         if (detalleCompra && detalleCompra.length > 0) {
             // Obtener los IDs de los detalles existentes
             const existingDetalleIds = detalleCompra
-                .filter((detalle) => detalle.ID_DETALLE)
-                .map((detalle) => detalle.ID_DETALLE);
+                .filter((detalle) => detalle.id_detalle)
+                .map((detalle) => detalle.id_detalle);
 
             // Eliminar los detalles existentes que no están en la nueva lista
             await DetalleComprasSModel.destroy({
                 where: {
-                    ID_DETALLE: {
+                    id_detalle: {
                         [Op.notIn]: existingDetalleIds,
                     },
-                    NUM_DOCUMENTO: numeroDocumento,
+                    num_documento: numeroDocumento,
                 },
             });
 
             // Actualizar o insertar los detalles de la compra
             for (const detalle of detalleCompra) {
-                if (detalle.ID_DETALLE) {
+                if (detalle.id_detalle) {
                     // Actualizar el detalle existente
                     await DetalleComprasSModel.update(detalle, {
-                        where: { ID_DETALLE: detalle.ID_DETALLE },
+                        where: { id_detalle: detalle.id_detalle },
                     });
                 } else {
                     // Insertar un nuevo detalle
                     await DetalleComprasSModel.create({
                         ...detalle,
-                        NUM_DOCUMENTO: numeroDocumento,
+                        num_documento: numeroDocumento,
                     });
                 }
             }
@@ -155,7 +155,7 @@ export const updateCompra = async (req, res) => {
 
 
 export const getCompraById = async (req, res) => {
-    const compraId = req.params.NUM_DOCUMENTO;
+    const compraId = req.params.num_documento;
 
     try {
         const compra = await ComprasSModel.findByPk(compraId, {
@@ -174,12 +174,12 @@ export const getCompraById = async (req, res) => {
 };
 
 export const obtenerDetalleCompra = async (req, res) => {
-    const compraId = req.params.NUM_DOCUMENTO;
+    const compraId = req.params.num_documento;
 
     try {
         // Obtener los detalles de la compra asociados a la compraId
         const detalles = await DetalleComprasSModel.findAll({
-            where: { NUM_DOCUMENTO: compraId },
+            where: { num_documento: compraId },
         });
 
         res.status(200).json(detalles);
@@ -190,7 +190,7 @@ export const obtenerDetalleCompra = async (req, res) => {
 };
 
 export const actualizarDetalleCompra = async (req, res) => {
-    const compraId = req.params.NUM_DOCUMENTO;
+    const compraId = req.params.num_documento;
     const detallesCompra = req.body.detallesCompra;
 
     if (!detallesCompra || !Array.isArray(detallesCompra)) {
@@ -200,7 +200,7 @@ export const actualizarDetalleCompra = async (req, res) => {
     try {
         // Eliminar los detalles de compra existentes asociados a la compraId
         await DetalleComprasSModel.destroy({
-            where: { NUM_DOCUMENTO: compraId },
+            where: { num_documento: compraId },
         });
 
         // Crear los nuevos registros de detalle de compra asociados a la compraId
