@@ -7,34 +7,35 @@ export const crearFactura = async (req, res) => {
     try {
         // Obtener los datos de la factura del cuerpo de la solicitud
         const {
-            ID_COMPANIA,
-            ID_TIPO_FACTURA,
-            ID_CLIENTE,
-            FECHA,
-            VENCIMIENTO,
+            id_compania,
+            id_tipo_factura,
+            id_cliente,
+            fecha,
+            vencimiento,
             detallesFactura, // Array de objetos de detalle de factura
-            TOTAL,
+            total,
         } = req.body;
 
         // Crear la factura en la base de datos
         const factura = await FacturacionSModel.create({
-            ID_COMPANIA,
-            ID_TIPO_FACTURA,
-            ID_CLIENTE,
-            FECHA,
-            VENCIMIENTO,
-            TOTAL,
+            id_compania,
+            id_tipo_factura,
+            id_cliente,
+            fecha,
+            vencimiento,
+            total,
+
         });
 
         // Crear los registros de detalle de factura asociados a la factura creada
         await Promise.all(
             detallesFactura.map(async (detalle) => {
                 await DetalleFacturaSModel.create({
-                    ID_FACTURA: factura.ID_FACTURA,
-                    ID_PRODUCTO: detalle.ID_PRODUCTO,
-                    CANTIDAD: detalle.CANTIDAD,
-                    SUBTOTAL: detalle.CANTIDAD * detalle.PRECIO,
-                    DESCUENTO: detalle.DESCUENTO,
+                    id_factura: factura.id_factura,
+                    id_producto: detalle.id_producto,
+                    cantidad: detalle.cantidad,
+                    subtotal: detalle.cantidad * detalle.precio,
+                    descuento: detalle.descuento,
                 });
             })
         );
@@ -50,7 +51,7 @@ export const crearFactura = async (req, res) => {
 // Obtener el último ID de factura
 export const obtenerUltimoIDFactura = async (req, res) => {
     try {
-        const ultimoID = await FacturacionSModel.max('ID_FACTURA');
+        const ultimoID = await FacturacionSModel.max('id_factura');
         res.json({ ultimoID });
     } catch (error) {
         console.error(error);
@@ -74,17 +75,17 @@ export const getAllFacturas = async (req, res) => {
 }
 
 export const deleteFactura = async (req, res) => {
-    const { ID_FACTURA } = req.params;
+    const { id_factura } = req.params;
 
     try {
         // Eliminar los detalles de factura relacionados manualmente
         await DetalleFacturaSModel.destroy({
-            where: { ID_FACTURA },
+            where: { id_factura },
         });
 
         // Eliminar la factura
         await FacturacionSModel.destroy({
-            where: { ID_FACTURA },
+            where: { id_factura },
         });
 
         res.status(200).json({ message: 'Factura y detalles eliminados correctamente' });
@@ -94,12 +95,12 @@ export const deleteFactura = async (req, res) => {
 };
 
 export const updateFactura = async (req, res) => {
-    const facturaId = req.params.ID_FACTURA;
+    const facturaId = req.params.id_factura;
 
     try {
         // Actualizar la factura
         await FacturacionSModel.update(req.body, {
-            where: { ID_FACTURA: facturaId },
+            where: { id_factura: facturaId },
         });
 
         // Actualizar el detalle de la factura
@@ -108,31 +109,31 @@ export const updateFactura = async (req, res) => {
         if (detalleFactura && detalleFactura.length > 0) {
             // Obtener los IDs de los detalles existentes
             const existingDetalleIds = detalleFactura
-                .filter((detalle) => detalle.ID_DETALLE_FACTURA)
-                .map((detalle) => detalle.ID_DETALLE_FACTURA);
+                .filter((detalle) => detalle.id_detalle_factura)
+                .map((detalle) => detalle.id_detalle_factura);
 
             // Eliminar los detalles existentes que no están en la nueva lista
             await DetalleFacturaSModel.destroy({
                 where: {
-                    ID_DETALLE_FACTURA: {
+                    id_detalle_factura: {
                         [Op.notIn]: existingDetalleIds,
                     },
-                    ID_FACTURA: facturaId,
+                    id_factura: facturaId,
                 },
             });
 
             // Actualizar o insertar los detalles de la factura
             for (const detalle of detalleFactura) {
-                if (detalle.ID_DETALLE_FACTURA) {
+                if (detalle.id_detalle_factura) {
                     // Actualizar el detalle existente
                     await DetalleFacturaSModel.update(detalle, {
-                        where: { ID_DETALLE_FACTURA: detalle.ID_DETALLE_FACTURA },
+                        where: { id_detalle_factura: detalle.id_detalle_factura },
                     });
                 } else {
                     // Insertar un nuevo detalle
                     await DetalleFacturaSModel.create({
                         ...detalle,
-                        ID_FACTURA: facturaId,
+                        id_factura: facturaId,
                     });
                 }
             }
@@ -147,7 +148,7 @@ export const updateFactura = async (req, res) => {
 
 
 export const getFacturaById = async (req, res) => {
-    const facturaId = req.params.ID_FACTURA;
+    const facturaId = req.params.id_factura;
 
     try {
         const factura = await FacturacionSModel.findByPk(facturaId, {
@@ -166,12 +167,12 @@ export const getFacturaById = async (req, res) => {
 };
 
 export const obtenerDetalleFactura = async (req, res) => {
-    const facturaId = req.params.ID_FACTURA;
+    const facturaId = req.params.id_factura;
 
     try {
         // Obtener los detalles de la factura asociados a la facturaId
         const detalles = await DetalleFacturaSModel.findAll({
-            where: { ID_FACTURA: facturaId },
+            where: { id_factura: facturaId },
         });
 
         res.status(200).json(detalles);
@@ -184,7 +185,7 @@ export const obtenerDetalleFactura = async (req, res) => {
 
 
 export const actualizarDetalleFactura = async (req, res) => {
-    const facturaId = req.params.ID_FACTURA;
+    const facturaId = req.params.id_factura;
     const detallesFactura = req.body.detallesFactura;
 
     if (!detallesFactura || !Array.isArray(detallesFactura)) {
@@ -194,7 +195,7 @@ export const actualizarDetalleFactura = async (req, res) => {
     try {
         // Eliminar los detalles de factura existentes asociados a la facturaId
         await DetalleFacturaSModel.destroy({
-            where: { ID_FACTURA: facturaId },
+            where: { id_factura: facturaId },
         });
 
         // Crear los nuevos registros de detalle de factura asociados a la facturaId

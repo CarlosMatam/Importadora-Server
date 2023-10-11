@@ -6,11 +6,11 @@ const router = express.Router()
 router.post('/', crearFactura)
 router.get('/ultimoID', obtenerUltimoIDFactura)
 router.get('/', getAllFacturas)
-router.delete('/:ID_FACTURA', deleteFactura)
-router.put('/:ID_FACTURA', updateFactura)
-router.get('/:ID_FACTURA', getFacturaById)
-router.get('/:ID_FACTURA/detalle', obtenerDetalleFactura)
-router.put('/:ID_FACTURA/detalle', actualizarDetalleFactura)
+router.delete('/:id_factura', deleteFactura)
+router.put('/:id_factura', updateFactura)
+router.get('/:id_factura', getFacturaById)
+router.get('/:id_factura/detalle', obtenerDetalleFactura)
+router.put('/:id_factura/detalle', actualizarDetalleFactura)
 
 
 export default router
