@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt';
 export const getAllLogin = async (req, res) => {
     try {
         const login = await LogeoSModel.findAll({
-           
+
         })
         res.json(login)
     } catch (error) {
@@ -19,7 +19,7 @@ export const getAllLogin = async (req, res) => {
 export const getLogin = async (req, res) => {
     try {
         const login = await LogeoSModel.findAll({
-            where: { ID_USUARIO: req.params.ID_USUARIO }
+            where: { id_usuario: req.params.id_usuario }
         })
         res.json(login[0])
     } catch (error) {
@@ -29,7 +29,7 @@ export const getLogin = async (req, res) => {
 //Crear un registro
 export const createLogin = async (req, res) => {
     try {
-       await LogeoSModel.create(req.body)
+        await LogeoSModel.create(req.body)
 
         res.json({
             "message": "¡Registro creado correctamente!"
@@ -41,11 +41,11 @@ export const createLogin = async (req, res) => {
 
 
 export const ValidacionLogin = async (req, res) => {
-    const { LOGIN_USER, CONTRASENNA } = req.body;
+    const { login_user, contrasenna } = req.body;
 
     try {
         const user = await LogeoSModel.findOne({
-            where: { LOGIN_USER },
+            where: { login_user },
         });
 
         if (!user) {
@@ -53,16 +53,16 @@ export const ValidacionLogin = async (req, res) => {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        if (user.CONTRASENNA !== CONTRASENNA) {
+        if (user.contrasenna !== contrasenna) {
             // La contraseña es incorrecta
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
 
         //para que no se muestre la contraseña en el json
         const UserNuevo = {
-            ID_USUARIO: user.ID_USUARIO,
-            LOGIN_USER: user.LOGIN_USER,
-        
+            id_usuario: user.id_usuario,
+            login_user: user.login_user,
+
         };
 
         res.json({

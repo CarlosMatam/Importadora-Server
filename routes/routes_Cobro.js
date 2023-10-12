@@ -3,9 +3,9 @@ import { getAllCobro, getCobro, createCobro, updateCobro, deleteCobro } from '..
 const router = express.Router()
 
 router.get('/', getAllCobro)
-router.get('/:ID_COBRO', getCobro)
+router.get('/:id_cobro', getCobro)
 router.post('/', createCobro)
-router.put('/:ID_COBRO', updateCobro)
-router.delete('/:ID_COBRO', deleteCobro)
+router.put('/:id_cobro', updateCobro)
+router.delete('/:id_cobro', deleteCobro)
 
 export default router

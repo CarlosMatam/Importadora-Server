@@ -3,9 +3,9 @@ import { getAllDireccion, getDireccion, createDireccion, updateDireccion, delete
 const router = express.Router()
 
 router.get('/', getAllDireccion)
-router.get('/:ID_DIRECCION', getDireccion)
+router.get('/:id_direccion', getDireccion)
 router.post('/', createDireccion)
-router.put('/:ID_DIRECCION', updateDireccion)
-router.delete('/:ID_DIRECCION', deleteDireccion)
+router.put('/:id_direccion', updateDireccion)
+router.delete('/:id_direccion', deleteDireccion)
 
 export default router

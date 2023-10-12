@@ -4,10 +4,10 @@ import { getAllProveedor, getProveedor, createProveedor, updateProveedor, delete
 const router = express.Router()
 
 router.get('/', getAllProveedor)
-router.get('/:ID_PROVEEDOR', getProveedor)
+router.get('/:id_proveedor', getProveedor)
 router.post('/', createProveedor)
-router.put('/:ID_PROVEEDOR', updateProveedor)
-router.delete('/:ID_PROVEEDOR', deleteProveedor)
+router.put('/:id_proveedor', updateProveedor)
+router.delete('/:id_proveedor', deleteProveedor)
 
 export default router
 

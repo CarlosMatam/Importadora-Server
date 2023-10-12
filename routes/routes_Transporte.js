@@ -3,9 +3,9 @@ import { getAllTransporte, getTransporte, createTransporte, updateTransporte, de
 const router = express.Router()
 
 router.get('/', getAllTransporte)
-router.get('/:ID_TRANSPORTE', getTransporte)
+router.get('/:id_transporte', getTransporte)
 router.post('/', createTransporte)
-router.put('/:ID_TRANSPORTE', updateTransporte)
-router.delete('/:ID_TRANSPORTE', deleteTransporte)
+router.put('/:id_transporte', updateTransporte)
+router.delete('/:id_transporte', deleteTransporte)
 
 export default router

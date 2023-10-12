@@ -1,5 +1,5 @@
 //importamos el Modelo
-import {TransporteSModel,Telefono_transporteSModel} from "../models/Relaciones_transporte.js"
+import { TransporteSModel, Telefono_transporteSModel } from "../models/Relaciones_transporte.js"
 
 //** Métodos CRUD **/
 
@@ -7,10 +7,10 @@ import {TransporteSModel,Telefono_transporteSModel} from "../models/Relaciones_t
 export const createTransporte = async (req, res) => {
     try {
         const transporte = await TransporteSModel.create(req.body)
-        const transporteId = transporte.ID_TRANSPORTE;
+        const transporteId = transporte.id_transporte;
 
         res.json({
-            ID_TRANSPORTE: transporteId,
+            id_transporte: transporteId,
             "message": "¡Registro creado correctamente!"
         })
     } catch (error) {
@@ -21,11 +21,11 @@ export const createTransporte = async (req, res) => {
 //Eliminar registro
 export const deleteTransporte = async (req, res) => {
     try {
-        const { ID_TRANSPORTE } = req.params;
+        const { id_transporte } = req.params;
 
         // Buscar el agente de ventas por su ID junto con sus relaciones asociadas
         const transporte = await TransporteSModel.findOne({
-            where: { ID_TRANSPORTE },
+            where: { id_transporte },
             include: [Telefono_transporteSModel]
         });
 
@@ -35,7 +35,7 @@ export const deleteTransporte = async (req, res) => {
 
         // Eliminar las relaciones asociadas (telefonos y direcciones)
         await Telefono_transporteSModel.destroy({
-            where: { ID_TRANSPORTE }
+            where: { id_transporte }
         });
 
         // Eliminar el agente de ventas
@@ -52,35 +52,35 @@ export const deleteTransporte = async (req, res) => {
 
 //Modificar registro
 export const updateTransporte = async (req, res) => {
-    const { ID_TRANSPORTE } = req.params;
+    const { id_transporte } = req.params;
 
     try {
         // Actualiza los datos del agente
         await TransporteSModel.update(
             {
-                NOMBRE: req.body.NOMBRE,
+                nombre: req.body.nombre,
             },
             {
-                where: { ID_TRANSPORTE },
+                where: { id_transporte },
             }
         );
 
         // Actualiza los teléfonos del agente
         await Telefono_transporteSModel.update(
             {
-                TELEFONO_1: req.body.TELEFONO_1,
-                TELEFONO_2: req.body.TELEFONO_2,
-                TELEFONO_3: req.body.TELEFONO_3,
+                telefono_1: req.body.telefono_1,
+                telefono_2: req.body.telefono_2,
+                telefono_3: req.body.telefono_3,
             },
             {
-                where: { ID_TRANSPORTE },
+                where: { id_transporte },
             }
         );
         res.json({
             message: "Registro actualizado correctamente",
         });
     } catch (error) {
-        console.error(error); 
+        console.error(error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -92,7 +92,7 @@ export const updateTransporte = async (req, res) => {
 export const getTransporte = async (req, res) => {
     try {
         const transporte = await TransporteSModel.findAll({
-            where: { ID_TRANSPORTE: req.params.ID_TRANSPORTE }
+            where: { id_transporte: req.params.id_transporte }
         })
         res.json(transporte[0])
     } catch (error) {

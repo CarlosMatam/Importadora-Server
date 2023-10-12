@@ -1,6 +1,6 @@
 //importamos el Modelo
 
-import {TipoCSModel} from "../models/Relaciones_cliente.js";
+import { TipoCSModel } from "../models/Relaciones_cliente.js";
 
 //** Métodos para el CRUD **/
 
@@ -18,7 +18,7 @@ export const getAllTipo = async (req, res) => {
 export const getTipo = async (req, res) => {
     try {
         const tipo = await TipoCSModel.findAll({
-            where: { ID_TIPO_CEDULA: req.params.ID_TIPO_CEDULA }
+            where: { id_tipo_cedula: req.params.id_tipo_cedula }
         })
         res.json(tipo[0])
     } catch (error) {
@@ -40,7 +40,7 @@ export const createTipo = async (req, res) => {
 export const updateTipo = async (req, res) => {
     try {
         await TipoCSModel.update(req.body, {
-            where: { ID_TIPO_CEDULA: req.params.ID_TIPO_CEDULA }
+            where: { id_tipo_cedula: req.params.id_tipo_cedula }
         })
         res.json({
             "message": "¡Registro actualizado correctamente!"
@@ -53,7 +53,7 @@ export const updateTipo = async (req, res) => {
 export const deleteTipo = async (req, res) => {
     try {
         await TipoCSModel.destroy({
-            where: { ID_TIPO_CEDULA: req.params.ID_TIPO_CEDULA }
+            where: { id_tipo_cedula: req.params.id_tipo_cedula }
         })
         res.json({
             "message": "¡Registro eliminado correctamente!"

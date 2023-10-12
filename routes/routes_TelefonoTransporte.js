@@ -3,9 +3,9 @@ import { getAllTelefono, getTelefono, createTelefono, updateTelefono, deleteTele
 const router = express.Router()
 
 router.get('/', getAllTelefono)
-router.get('/:ID_TELEFONO', getTelefono)
+router.get('/:id_telefono', getTelefono)
 router.post('/', createTelefono)
-router.put('/:ID_TELEFONO', updateTelefono)
-router.delete('/:ID_TELEFONO', deleteTelefono)
+router.put('/:id_telefono', updateTelefono)
+router.delete('/:id_telefono', deleteTelefono)
 
 export default router

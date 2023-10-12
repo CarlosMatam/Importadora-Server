@@ -21,7 +21,7 @@ export const getAllProveedor = async (req, res) => {
 export const getProveedor = async (req, res) => {
     try {
         const proveedor = await ProveedorSModel.findAll({
-            where: { ID_PROVEEDOR: req.params.ID_PROVEEDOR }
+            where: { id_proveedor: req.params.id_proveedor }
         })
         res.json(proveedor[0])
     } catch (error) {
@@ -32,10 +32,10 @@ export const getProveedor = async (req, res) => {
 export const createProveedor = async (req, res) => {
     try {
         const proveedor = await ProveedorSModel.create(req.body)
-        const proveedorId = proveedor.ID_PROVEEDOR;
+        const proveedorId = proveedor.id_proveedor;
 
         res.json({
-            ID_PROVEEDOR: proveedorId,
+            id_proveedor: proveedorId,
             "message": "¡Registro creado correctamente!"
         })
     } catch (error) {
@@ -45,46 +45,46 @@ export const createProveedor = async (req, res) => {
 
 //Actualizar un registro
 export const updateProveedor = async (req, res) => {
-    const { ID_PROVEEDOR } = req.params;
+    const { id_proveedor } = req.params;
 
     try {
         // Actualiza los datos del agente
         await ProveedorSModel.update(
             {
-                NOMBRE: req.body.NOMBRE,
-                CORREO: req.body.CORREO,
-                TIPO_CEDULA: req.body.TIPO_CEDULA,
-                CEDULA: req.body.CEDULA,
-            
+                nombre: req.body.nombre,
+                correo: req.body.correo,
+                tipo_cedula: req.body.tipo_cedula,
+                cedula: req.body.cedula,
+
             },
             {
-                where: { ID_PROVEEDOR },
+                where: { id_proveedor },
             }
         );
 
         // Actualiza los teléfonos del agente
         await Telefono_proveedorSModel.update(
             {
-                TELEFONO_1: req.body.TELEFONO_1,
-                TELEFONO_2: req.body.TELEFONO_2,
-                TELEFONO_3: req.body.TELEFONO_3,
+                telefono_1: req.body.telefono_1,
+                telefono_2: req.body.telefono_2,
+                telefono_3: req.body.telefono_3,
             },
             {
-                where: { ID_PROVEEDOR },
+                where: { id_proveedor },
             }
         );
 
         // Actualiza las direcciones del agente
         await Direccion_proveedorSModel.update(
             {
-                PROVINCIA: req.body.PROVINCIA,
-                CANTON: req.body.CANTON,
-                DISTRITO: req.body.DISTRITO,
-                BARRIO: req.body.BARRIO,
-                OTRAS_SENNAS: req.body.OTRAS_SENNAS,
+                provincia: req.body.provincia,
+                canton: req.body.canton,
+                distrito: req.body.distrito,
+                barrio: req.body.barrio,
+                otras_sennas: req.body.otras_sennas,
             },
             {
-                where: { ID_PROVEEDOR },
+                where: { id_proveedor },
             }
         );
 
@@ -99,11 +99,11 @@ export const updateProveedor = async (req, res) => {
 //Eliminar un registro
 export const deleteProveedor = async (req, res) => {
     try {
-        const { ID_PROVEEDOR } = req.params;
+        const { id_proveedor } = req.params;
 
         // Buscar el agente de ventas por su ID junto con sus relaciones asociadas
         const proveedor = await ProveedorSModel.findOne({
-            where: { ID_PROVEEDOR },
+            where: { id_proveedor },
             include: [Telefono_proveedorSModel, Direccion_proveedorSModel]
         });
 
@@ -113,11 +113,11 @@ export const deleteProveedor = async (req, res) => {
 
         // Eliminar las relaciones asociadas (telefonos y direcciones)
         await Telefono_proveedorSModel.destroy({
-            where: { ID_PROVEEDOR }
+            where: { id_proveedor }
         });
 
         await Direccion_proveedorSModel.destroy({
-            where: { ID_PROVEEDOR }
+            where: { id_proveedor }
         });
 
         // Eliminar el agente de ventas
@@ -130,3 +130,4 @@ export const deleteProveedor = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+

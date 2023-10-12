@@ -17,7 +17,7 @@ export const getAllTelefono = async (req, res) => {
 export const getTelefono = async (req, res) => {
     try {
         const telefono = await Telefono_proveedorSModel.findAll({
-            where: {ID_TELEFONO: req.params.ID_TELEFONO }
+            where: { id_telefono: req.params.id_telefono }
         })
         res.json(telefono[0])
     } catch (error) {
@@ -29,11 +29,11 @@ export const getTelefono = async (req, res) => {
 // Crear un registro
 export const createTelefono = async (req, res) => {
     try {
-        const { ID_PROVEEDOR, TELEFONO_1, TELEFONO_2, TELEFONO_3 } = req.body;
+        const { id_proveedor, telefono_1, telefono_2, telefono_3 } = req.body;
 
         // Verifica si existe un agente de ventas con el ID proporcionado
         const proveedor = await ProveedorSModel.findOne({
-            where: { ID_PROVEEDOR }
+            where: { id_proveedor }
         });
 
         if (!proveedor) {
@@ -42,17 +42,17 @@ export const createTelefono = async (req, res) => {
 
         // Crea el teléfono y establece la relación con el agente de ventas
         const telefono = await Telefono_proveedorSModel.create({
-            TELEFONO_1,
-            TELEFONO_2,
-            TELEFONO_3,
-            ID_PROVEEDOR
+            telefono_1,
+            telefono_2,
+            telefono_3,
+            id_proveedor
         });
 
         // Obtén el ID del teléfono creado
-        const ID_TELEFONO = telefono.ID_TELEFONO;
+        const id_telefono = telefono.id_telefono;
 
         res.json({
-            ID_TELEFONO,
+            id_telefono,
             "message": "¡Registro creado correctamente!"
         });
     } catch (error) {
@@ -63,7 +63,7 @@ export const createTelefono = async (req, res) => {
 export const updateTelefono = async (req, res) => {
     try {
         await Telefono_proveedorSModel.update(req.body, {
-            where: { ID_TELEFONO: req.params.ID_TELEFONO }
+            where: { id_telefono: req.params.id_telefono }
         })
         res.json({
             "message": "¡Registro actualizado correctamente!"
@@ -76,7 +76,7 @@ export const updateTelefono = async (req, res) => {
 export const deleteTelefono = async (req, res) => {
     try {
         await Telefono_proveedorSModel.destroy({
-            where: { ID_TELEFONO: req.params.ID_TELEFONO }
+            where: { id_telefono: req.params.id_telefono }
         })
         res.json({
             "message": "¡Registro eliminado correctamente!"

@@ -1,5 +1,5 @@
 //importamos el Modelo
-import {PagoSModel,ProveedorSModel} from '../models/Relaciones_pago.js';
+import { PagoSModel, ProveedorSModel } from '../models/Relaciones_pago.js';
 
 //** Métodos para el CRUD **/
 
@@ -7,7 +7,7 @@ import {PagoSModel,ProveedorSModel} from '../models/Relaciones_pago.js';
 export const getAllPago = async (req, res) => {
     try {
         const pago = await PagoSModel.findAll({
-            include: 
+            include:
                 [ProveedorSModel]
         })
         res.json(pago)
@@ -19,7 +19,7 @@ export const getAllPago = async (req, res) => {
 export const getPago = async (req, res) => {
     try {
         const pago = await PagoSModel.findAll({
-            where: { ID_PAGO: req.params.ID_PAGO }
+            where: { id_pago: req.params.id_pago }
         })
         res.json(pago[0])
     } catch (error) {
@@ -30,10 +30,10 @@ export const getPago = async (req, res) => {
 export const createPago = async (req, res) => {
 
     try {
-        const { ID_PROVEEDOR, FECHA_INGRESO, MONTO, ESTADO } = req.body;
+        const { id_proveedor, fecha_ingreso, monto, estado } = req.body;
         console.log(req.body);
         const proveedor = await ProveedorSModel.findOne({
-            where: { ID_PROVEEDOR }
+            where: { id_proveedor }
         });
         if (!proveedor) {
             return res.json({ message: 'No se encontró un proveedor con el ID proporcionado' });
@@ -50,7 +50,7 @@ export const createPago = async (req, res) => {
 export const updatePago = async (req, res) => {
     try {
         await PagoSModel.update(req.body, {
-            where: { ID_PAGO: req.params.ID_PAGO }
+            where: { id_pago: req.params.id_pago }
         })
         res.json({
             "message": "¡Registro actualizado correctamente!"
@@ -63,7 +63,7 @@ export const updatePago = async (req, res) => {
 export const deletePago = async (req, res) => {
     try {
         await PagoSModel.destroy({
-            where: { ID_PAGO: req.params.ID_PAGO }
+            where: { id_pago: req.params.id_pago }
         })
         res.json({
             "message": "¡Registro eliminado correctamente!"

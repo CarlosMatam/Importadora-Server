@@ -3,9 +3,9 @@ import { getAllPago, getPago, createPago, updatePago, deletePago } from '../cont
 const router = express.Router()
 
 router.get('/', getAllPago)
-router.get('/:ID_PAGO', getPago)
+router.get('/:id_pago', getPago)
 router.post('/', createPago)
-router.put('/:ID_PAGO', updatePago)
-router.delete('/:ID_PAGO', deletePago)
+router.put('/:id_pago', updatePago)
+router.delete('/:id_pago', deletePago)
 
 export default router

@@ -1,5 +1,5 @@
 //importamos el Modelo
-import { ClienteSModel, CobroSModel} from '../models/Relaciones_cobro.js';
+import { ClienteSModel, CobroSModel } from '../models/Relaciones_cobro.js';
 
 
 //** Métodos para el CRUD **/
@@ -21,7 +21,7 @@ export const getAllCobro = async (req, res) => {
 export const getCobro = async (req, res) => {
     try {
         const cobro = await CobroSModel.findAll({
-            where: { ID_COBRO: req.params.ID_COBRO }
+            where: { id_cobro: req.params.id_cobro }
         })
         res.json(cobro[0])
     } catch (error) {
@@ -31,9 +31,9 @@ export const getCobro = async (req, res) => {
 //Crear un registro
 export const createCobro = async (req, res) => {
     try {
-        const { ID_CLIENTE, FECHA_INGRESO, MONTO, ESTADO } = req.body;
+        const { id_cliente, fecha_ingreso, monto, estado } = req.body;
         const cliente = await ClienteSModel.findOne({
-            where: { ID_CLIENTE }
+            where: { id_cliente }
         });
         if (!cliente) {
             return res.json({ message: 'No se encontró un cliente con el ID proporcionado' });
@@ -50,7 +50,7 @@ export const createCobro = async (req, res) => {
 export const updateCobro = async (req, res) => {
     try {
         await CobroSModel.update(req.body, {
-            where: { ID_COBRO: req.params.ID_COBRO }
+            where: { id_cobro: req.params.id_cobro }
         })
         res.json({
             "message": "¡Registro actualizado correctamente!"
@@ -63,7 +63,7 @@ export const updateCobro = async (req, res) => {
 export const deleteCobro = async (req, res) => {
     try {
         await CobroSModel.destroy({
-            where: { ID_COBRO: req.params.ID_COBRO }
+            where: { id_cobro: req.params.id_cobro }
         })
         res.json({
             "message": "¡Registro eliminado correctamente!"

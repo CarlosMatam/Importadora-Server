@@ -17,7 +17,7 @@ export const getAllCompania = async (req, res) => {
 export const getCompania = async (req, res) => {
     try {
         const compania = await CompaniaSModel.findAll({
-            where: { ID_COMPANIA: req.params.ID_COMPANIA }
+            where: { id_compania: req.params.id_compania }
         })
         res.json(compania[0])
     } catch (error) {
@@ -39,7 +39,7 @@ export const createCompania = async (req, res) => {
 export const updateCompania = async (req, res) => {
     try {
         await CompaniaSModel.update(req.body, {
-            where: { ID_COMPANIA: req.params.ID_COMPANIA }
+            where: { id_compania: req.params.id_compania }
         })
         res.json({
             "message": "¡Registro actualizado correctamente!"
@@ -52,7 +52,7 @@ export const updateCompania = async (req, res) => {
 export const deleteCompania = async (req, res) => {
     try {
         await CompaniaSModel.destroy({
-            where: { ID_COMPANIA: req.params.ID_COMPANIA }
+            where: { id_compania: req.params.id_compania }
         })
         res.json({
             "message": "¡Registro eliminado correctamente!"

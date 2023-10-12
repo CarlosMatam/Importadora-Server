@@ -3,9 +3,9 @@ import { getAllCompania, getCompania, createCompania, updateCompania, deleteComp
 const router = express.Router()
 
 router.get('/', getAllCompania)
-router.get('/:ID_COMPANIA', getCompania)
+router.get('/:id_compania', getCompania)
 router.post('/', createCompania)
-router.put('/:ID_COMPANIA', updateCompania)
-router.delete('/:ID_COMPANIA', deleteCompania)
+router.put('/:id_compania', updateCompania)
+router.delete('/:id_compania', deleteCompania)
 
 export default router
